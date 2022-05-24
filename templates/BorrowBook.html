@@ -1,0 +1,182 @@
+{% extends "layout.html" %}
+{% block title %}LMS App{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+table, th, td {
+
+  border-collapse: collapse;
+   border-spacing: 5px;
+}
+
+td,th {
+  text-align: center;
+}
+
+
+
+tr {
+  border-bottom: 1px solid #ddd;
+}
+
+th, td {
+  padding: 5px;
+}
+</style>
+
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+
+<div class="jumbotron"   >
+      <h1 class="display-5" style="font-family:verdana;"  ><center><strong>LIBRARY MANAGMENT SYSTEM</strong> </center> </h1>
+
+    <h2 class="lead" style="font-family:courier;"  ><center>Designed to help librarian maintain the database of books and the books that are borrowed by members  </center> </h2>
+
+
+    <h3 class="lead"  style="font-family:courier;" ><center>This system completely automates the library's activities.</center></h3>
+     <h7 class="alignleft" style="color:white;background-color:#708090 ;  float : right ; margin-block-start: 1.2em ; margin-block-end: 0.2em ; line-height:2em; " >
+    <form action="/logout" method="POST">
+                <button class="btn btn-danger"  id='btn1' type="submit"  style="color:white; background-color:indianred     " >&nbsp;LOGOUT&nbsp;</button>
+            </form>
+    </h7>
+
+      <h7 class="alignleft" style="color:white;background-color:#708090 ;  float : right ; margin-block-start: 1.2em ; margin-block-end: 0.2em ; line-height:2.35em; " >
+          &nbsp;&nbsp;<input type="checkbox"   name="optradio" checked>&nbsp;&nbsp;LOGGED IN AS : &nbsp;<strong>{{user}}</strong>  &nbsp;&nbsp;  </h7><br>
+
+
+  </div>
+
+<div class="twoToneCenter">
+
+
+
+
+
+<script language="javascript">
+    function changeImage(image_id, label) {
+
+            <!-- document.getElementById("demo").innerHTML = document.getElementById(image_id).src;-->
+             <!-- document.getElementById("showme").innerHTML = document.getElementById(image_id).src; -->
+
+
+            document.getElementById(image_id).src = "static/loader.gif";
+            document.getElementById(image_id).width = "30";
+            document.getElementById(image_id).height="30";
+            document.getElementById(label).innerHTML = "&nbsp;&nbsp;TEST RUNNING . . ."
+            document.getElementById(label).style=" color:DeepSkyBlue;  "
+
+
+    }
+</script>
+
+</div>
+
+
+<script>
+
+
+  function inputChange(image_id, label) {
+
+    document.getElementById(image_id).src = "static/empty2.png";
+    document.getElementById(image_id).width = "30";
+    document.getElementById(image_id).height="30";
+    document.getElementById(label).innerHTML= "&nbsp;TEST NOT STARTED"
+    document.getElementById(label).style=" color:black; margin-right: 3.0em; "
+
+  };
+</script>
+
+
+<hr class="my-1">
+  <div class="row" style="display: flex ;  justify-content: center ; "  >
+
+    <div class="w-75 p-5"   >
+
+
+
+            <h2 style="color:white;background-color:MediumSeaGreen ; line-height:2.00em;   " ><center>&nbsp;&nbsp;BORROW BOOK  &nbsp;   </center></h2><br>
+           <center><table>
+
+            {% if error %}
+        <p class="error" style="color:white; background-color:IndianRed; "><strong>Error:</strong> {{ error }}
+      {% endif %}
+
+            <form action="/MemberBorrow" method="post"  >
+
+
+
+
+                 <input type="hidden" class="form-control" id="BookID" name="BookID" value="{{bookId}}">
+               <input type="hidden" class="form-control" id="Title" name="Title" value="{{bookName}}">
+               <input type="hidden" class="form-control" id="DueDate" name="DueDate" value="{{DueDate}}">
+
+
+               <input type="hidden" class="form-control" id="memberId" name="memberId" value="{{memberId}}">
+
+
+               <tr>
+         <td> <label style="line-height:2.2em;"   >&nbsp;&nbsp;Book ID:&nbsp; </label> &nbsp; </td> <td>
+
+                       <label style="line-height:2.2em;"   >&nbsp;&nbsp;{{bookId}}&nbsp; </label>
+
+                </td></tr>
+             <tr>
+         <td> <label style="line-height:2.2em;"   >&nbsp;&nbsp;Book Title :&nbsp; </label> &nbsp; </td> <td>
+
+                            <label style="line-height:2.2em;"   >&nbsp;&nbsp;{{bookName}}&nbsp; </label>
+
+
+               </td></tr>
+
+
+               <tr>
+
+
+
+
+               <tr>
+               <td><label style="line-height:2.2em;"   >&nbsp;&nbsp;DueDate ( 1 month )  :&nbsp; <br><br></label>&nbsp; </td><td>
+
+
+                   <label style="line-height:2.2em;"   >&nbsp;&nbsp;{{DueDate}}&nbsp;</label><br><label style=" color:green;" >Note : You can request an extension from the Librarian
+
+
+
+
+                            </label>
+
+               </td></tr>
+
+
+                <tr>
+               <td><label style="line-height:2.2em;  color:indianred;"   >&nbsp;&nbsp;⚠ Warning :&nbsp; </label> &nbsp; </td><td>
+
+
+                    <label style="line-height:2.2em; color:indianred;  "   >&nbsp;&nbsp;Late fine will be applied ( 10$ per late day )  &nbsp; </label>
+
+
+               </td></tr>
+
+
+
+
+               <tr>
+                   <td></td><td class="form-inline"><br><input class="btn text-right" type="submit" value="Borrow" style="color:white; background-color:DeepSkyBlue "></form> &nbsp;&nbsp; <form action="/CancelOperationMember" method="POST"><input class="btn text-right" type="submit" value="Cancel" style="color:white; background-color:indianred "></form> <br><br></td>
+
+
+                </tr>
+
+
+
+    </table></center>
+
+    </div>
+  </div>
+
+
+{% endblock %}

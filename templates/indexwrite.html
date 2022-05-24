@@ -1,0 +1,366 @@
+{% extends "layout.html" %}
+{% block title %}LMS App{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+table, th, td {
+  border: 0.2px solid black;
+  border-collapse: collapse;
+   border-spacing: 5px;
+}
+
+td,th {
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background-color: #D6EEEE;
+}
+
+tr {
+  border-bottom: 1px solid #ddd;
+}
+
+th, td {
+  padding: 5px;
+}
+</style>
+
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+
+<div class="jumbotron"   >
+      <h1 class="display-5" style="font-family:verdana;"  ><center><strong>LIBRARY MANAGMENT SYSTEM</strong> </center> </h1>
+
+    <h2 class="lead" style="font-family:courier;"  ><center>Designed to help librarian maintain the database of books and the books that are borrowed by members  </center> </h2>
+
+
+    <h3 class="lead"  style="font-family:courier;" ><center>This system completely automates the library's activities.</center></h3>
+
+     <br><hr class="my-1">
+
+      <div class="row" style="display: flex ;  justify-content: center ;  "  >
+
+    <div class="w-30 p-0"   >
+
+            <center>
+            <h2 style="color:white;background-color:black ; line-height:2.00em;   " ><center>&nbsp;&nbsp;ADMIN PAGE&nbsp;&nbsp;  </center></h2>
+            </center></div></div>
+
+    <h7 class="alignleft" style="color:white;background-color:#708090 ;  float : right ; margin-block-start: 1.2em ; margin-block-end: 0.2em ; line-height:2em; " >
+
+
+    <form action="/logout" method="POST">
+                <button class="btn btn-danger"  id='btn1' type="submit"  style="color:white; background-color:indianred     " >&nbsp;LOGOUT&nbsp;</button>
+            </form>
+    </h7>
+
+      <h7 class="alignleft" style="color:white;background-color:#708090 ;  float : right ; margin-block-start: 1.2em ; margin-block-end: 0.2em ; line-height:2.35em; " >
+          &nbsp;&nbsp;<input type="checkbox"   name="optradio" checked>&nbsp;&nbsp;LOGGED IN AS : &nbsp;<strong>{{user}}</strong>  &nbsp;&nbsp;  </h7><br>
+
+  </div>
+
+
+<div class="twoToneCenter">
+
+
+
+
+
+<script language="javascript">
+    function changeImage(image_id, label) {
+
+            <!-- document.getElementById("demo").innerHTML = document.getElementById(image_id).src;-->
+             <!-- document.getElementById("showme").innerHTML = document.getElementById(image_id).src; -->
+
+
+            document.getElementById(image_id).src = "static/loader.gif";
+            document.getElementById(image_id).width = "30";
+            document.getElementById(image_id).height="30";
+            document.getElementById(label).innerHTML = "&nbsp;&nbsp;TEST RUNNING . . ."
+            document.getElementById(label).style=" color:DeepSkyBlue;  "
+
+
+    }
+</script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+$(document).ready(function(){
+  $("#myInputMember").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTableMember tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+$(document).ready(function(){
+  $("#myInputBorrower").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTableBorrower tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+
+</script>
+
+</div>
+
+
+<script>
+
+
+  function inputChange(image_id, label) {
+
+    document.getElementById(image_id).src = "static/empty2.png";
+    document.getElementById(image_id).width = "30";
+    document.getElementById(image_id).height="30";
+    document.getElementById(label).innerHTML= "&nbsp;TEST NOT STARTED"
+    document.getElementById(label).style=" color:black; margin-right: 3.0em; "
+
+  };
+</script>
+
+<!--<body style="background-image: url('static/img.jpg'); height: 100vh">-->
+  <div class="row"  >
+
+    <div class="col-sm-12"   >
+<section class="border py-0">
+        <h2 style="color:white;background-color:#708090 ; line-height:2.00em;   " >&nbsp;&nbsp;BOOKS&nbsp;&nbsp;  </h2>
+
+
+
+
+<br />
+    <table style="width:100%"  >
+
+    <thead>
+  <tr>
+      <th>BookID</th>
+    <th>Title</th>
+    <th>Author</th>
+      <th>Availability</th>
+      <th>Price</th>
+
+      <th>PublisherName</th>
+      <th>PublisherPhone</th>
+      <th> Operations </th>
+
+  </tr>  </thead> <tbody id="myTable">
+
+
+        {% for eachrow in books %}
+
+
+                <tr>
+                    <td>{{eachrow['BookID']}}</td>
+                    <td>{{eachrow['Title']}}</td>
+                    <td>{{eachrow['Author']}}</td>
+
+                     <td>{{eachrow['Availability']}}</td>
+                     <td>{{eachrow['Price']}}</td>
+
+                     <td>{{eachrow['PublisherName']}}</td>
+                     <td>{{eachrow['PublisherPhone']}}</td>
+                    <td class="form-inline">
+                        <form action="/editBook" method="POST"><button  id='btn1' type="submit"  name = "editB" value="{{eachrow['BookID']}}" style="color:white; background-color:#61C329 " >&nbsp;Edit&nbsp;</button></form>&nbsp;
+                        <form action="/deleteBook" method="POST"><button  id='btn1' type="submit"  name = "delB" value="{{eachrow['BookID']}}" style="color:white; background-color:IndianRed " >&nbsp;Delete&nbsp;</button></form></td></tr>
+
+
+
+            {% endfor %}
+
+             </tbody>
+
+            </table>
+
+            <div  style="display: flex ; margin-block-start: 1.5em ; margin-block-end: 1.5em  ; justify-content: center ; width : 100% ">
+
+           <form action="/add_book" method="post" class="form-inline"  >
+
+             &nbsp;&nbsp;&nbsp;<input id="myInput" type="text" placeholder="  Search For a Book...  "  >&nbsp;&nbsp;&nbsp;<button class="btn btn-secondary" style="color:black; background-color:WhiteSmoke;"  >Add Book </button>
+            </form>&nbsp;
+
+
+
+            </div>
+
+<br>
+            <h2 style="color:white;background-color:#708090 ; line-height:2.00em;   " >&nbsp;&nbsp;MEMBERS&nbsp;&nbsp;  </h2>
+
+    <br><table style="width:100%" >
+  <thead>
+    <tr>
+      <th>memberId</th>
+    <th>firstName</th>
+    <th>lastName</th>
+      <th>address</th>
+      <th>phone</th>
+      <th>membershipDate</th>
+      <th>expiryDate</th>
+      <th> Operations </th>
+
+
+  </tr></thead> <tbody id="myTableMember">
+
+
+        {% for eachrow in members %}
+
+
+                <tr>
+                    <td>{{eachrow['memberId']}}</td>
+                    <td>{{eachrow['firstName']}}</td>
+                    <td>{{eachrow['lastName']}}</td>
+
+                     <td>{{eachrow['address']}}</td>
+                     <td>{{eachrow['phone']}}</td>
+                     <td>{{eachrow['membershipDate']}}</td>
+                     <td>{{eachrow['expiryDate']}}</td>
+                    <td class="form-inline">
+
+                      <form action="/editMember" method="POST"><button  id='btn1' type="submit"  name = "editM" value="{{eachrow['memberId']}}" style="color:white; background-color:#61C329 " >&nbsp;Edit&nbsp;</button></form>&nbsp;
+                        <form action="/deleteMember" method="POST"><button  id='btn1' type="submit"  name = "delM" value="{{eachrow['memberId']}}" style="color:white; background-color:IndianRed " >&nbsp;Delete&nbsp;</button></form></td>
+
+
+
+            {% endfor %}
+
+             </tbody>
+            </table>
+
+        <div  style="display: flex ; margin-block-start: 1.5em ; margin-block-end: 1.5em  ; justify-content: center ; width : 100% ">
+
+           <form action="/add_member" method="post" class="form-inline" >
+
+             &nbsp;<input id="myInputMember" type="text" placeholder="  Search For a Member...  "  >&nbsp;&nbsp;&nbsp;<button class="btn btn-secondary" style="color:black; background-color:WhiteSmoke;"  >Add Member </button>
+            </form>&nbsp;
+
+            </div>
+<hr class="my-1"><br>
+
+
+
+            <h2 style="color:white;background-color:#708090 ; line-height:2.00em;   " >&nbsp;&nbsp;BORROWING DETAILS&nbsp;&nbsp;  </h2>
+
+    <br><table style="width:100%" ><thead>
+  <tr>
+      <th>BookID</th>
+    <th>MemberID</th>
+    <th>ReturnDate</th>
+      <th>DueDate</th>
+      <th>LateFine</th>
+      <th> Operations </th>
+
+
+
+  </tr></thead> <tbody id="myTableBorrower">
+
+
+        {% for eachrow in borrowers %}
+
+
+                <tr>
+                    <td>{{eachrow['BookID']}}</td>
+                    <td>{{eachrow['MemberID']}}</td>
+                    <td>{{eachrow['ReturnDate']}}</td>
+
+                     <td>{{eachrow['DueDate']}}</td>
+                     <td>{{eachrow['LateFine']}}</td>
+
+                    {% if eachrow.ReturnDate  == None   %}
+
+
+                        {% if  eachrow.DueDate_Extensions < 2   %}
+
+
+                        <td>
+
+                           <form action="/extendDate" method="POST">
+
+                                 <input type="hidden" class="form-control" id="memberId" name="memberId" value="{{eachrow['MemberID']}}">
+
+                               <button  id='btn1' type="submit" id="BookID" name="BookID" value="{{eachrow['BookID']}}"  style="color:white; background-color:#1996DD" >&nbsp;Extend date &nbsp;</button></form>
+                        {% else  %}
+
+
+                            <td> Due Date extended 2 times ✔  </td>
+
+                            {% endif %}
+
+
+
+                       </td>
+                    {% else  %}
+                      <td> returned ✔ </td>
+
+                    {% endif %}
+
+
+            {% endfor %}
+
+              </tbody>
+            </table>
+
+        <div  style="display: flex ; margin-block-start: 1.5em ; margin-block-end: 1.5em  ; justify-content: center ; width : 100% ">
+
+           <form action="/add_borrower" method="post" class="form-inline" >
+
+             <input id="myInputBorrower" type="text" placeholder="  Search For a Borrower...  "  >&nbsp;&nbsp;&nbsp;<button class="btn btn-secondary" style="color:black; background-color:WhiteSmoke;"  >Add Borrower </button>
+            </form>&nbsp;
+
+            </div>
+
+
+
+
+      <h2 style="color:white; margin-block-start: 0.85em ; background-color:#708090 ;  line-height:0.05em;   ">&nbsp; </h2>
+
+
+        <!--
+        <ul class="list-group mb-4"    >
+       <center>
+       <form action="/addmongoentry" method="post"   >
+
+        <center><label for="title"  ><strong>Insert new E0 test  :&nbsp; </strong> </label>
+            <input type="text" id="title" name="title">&nbsp;&nbsp;&nbsp;<button class="button button1"  >&nbsp;Add &nbsp;</button></center>
+
+      </form>
+      </ul> -->
+
+    <!-- margin-block-end: 0.83em"; -->
+
+    <div  style="display: flex ; margin-block-start: 1.5em ; margin-block-end: 1.5em  ; justify-content: center ; width : 100% ">
+
+           <br><br>
+
+
+    </div>
+
+
+
+    </div>
+<!--</body>-->
+</section>
+
+    </style>
+    </head>
+
+{% endblock %}

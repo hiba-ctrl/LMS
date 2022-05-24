@@ -1,0 +1,148 @@
+{% extends "layout.html" %}
+{% block title %}LMS App{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+table, th, td {
+
+  border-collapse: collapse;
+   border-spacing: 5px;
+}
+
+td,th {
+  text-align: center;
+}
+
+
+
+tr {
+  border-bottom: 1px solid #ddd;
+}
+
+th, td {
+  padding: 5px;
+}
+</style>
+
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+
+<div class="jumbotron"   >
+      <h1 class="display-5" style="font-family:verdana;"  ><center><strong>LIBRARY MANAGMENT SYSTEM</strong> </center> </h1>
+
+    <h2 class="lead" style="font-family:courier;"  ><center>Designed to help librarian maintain the database of books and the books that are borrowed by members  </center> </h2>
+
+
+    <h3 class="lead"  style="font-family:courier;" ><center>This system completely automates the library's activities.</center></h3>
+
+
+  </div>
+
+<div class="twoToneCenter">
+
+
+
+
+
+<script language="javascript">
+    function changeImage(image_id, label) {
+
+            <!-- document.getElementById("demo").innerHTML = document.getElementById(image_id).src;-->
+             <!-- document.getElementById("showme").innerHTML = document.getElementById(image_id).src; -->
+
+
+            document.getElementById(image_id).src = "static/loader.gif";
+            document.getElementById(image_id).width = "30";
+            document.getElementById(image_id).height="30";
+            document.getElementById(label).innerHTML = "&nbsp;&nbsp;TEST RUNNING . . ."
+            document.getElementById(label).style=" color:DeepSkyBlue;  "
+
+
+    }
+</script>
+
+</div>
+
+
+<script>
+
+
+  function inputChange(image_id, label) {
+
+    document.getElementById(image_id).src = "static/empty2.png";
+    document.getElementById(image_id).width = "30";
+    document.getElementById(image_id).height="30";
+    document.getElementById(label).innerHTML= "&nbsp;TEST NOT STARTED"
+    document.getElementById(label).style=" color:black; margin-right: 3.0em; "
+
+  };
+</script>
+
+
+<hr class="my-1">
+  <div class="row" style="display: flex ;  justify-content: center ; "  >
+
+    <div class="w-50 p-5"   >
+
+
+
+            <h2 style="color:white;background-color:MediumSeaGreen ; line-height:2.00em;   " ><center>&nbsp;&nbsp;MEMBER SIGN UP&nbsp;   </center></h2><br>
+           <center><table>
+
+            {% if error %}
+        <p class="error" style="color:white; background-color:IndianRed; "><strong>Error:</strong> {{ error }}
+      {% endif %}
+
+            <form action="/InsertMemberSignUp" method="post"  >
+
+             <tr>
+         <td> <label style="line-height:2.2em;"   >&nbsp;&nbsp;memberId :&nbsp; </label> &nbsp; </td> <td> <input type="text"  name="memberId" ></td></tr>
+
+
+               <tr>
+         <td> <label style="line-height:2.2em;"   >&nbsp;&nbsp;firstName :&nbsp; </label> &nbsp; </td> <td> <input type="text"  name="firstName" ></td></tr>
+               <tr>
+
+               <td><label style="line-height:2.2em;"   >&nbsp;&nbsp;lastName :&nbsp; </label> &nbsp; </td><td><input type="text"  name="lastName">
+               </td></tr>
+               <tr>
+               <td><label style="line-height:2.2em;"   >&nbsp;&nbsp;address :&nbsp; </label> &nbsp; </td><td><input type="text"  name="address">
+               </td></tr>
+               <tr>
+               <td><label style="line-height:2.2em;"   >&nbsp;&nbsp;phone :&nbsp; </label> &nbsp;</td> <td><input type="text"  name="phone" >
+               </td></tr>
+               <tr>
+               <td><label style="line-height:2.2em;"   >&nbsp;&nbsp;membershipDate :&nbsp; </label> &nbsp; </td><td>
+
+
+                   <input type="datetime-local" id="membershipDate" name="membershipDate" step="1"  >
+
+
+               </td></tr>
+               <tr>
+              <td> <label style="line-height:2.2em;"   >&nbsp;&nbsp;expiryDate :&nbsp; </label> &nbsp; </td><td>
+
+                    <input type="datetime-local" id="expiryDate" name="expiryDate" step="1"  >
+               </td></tr>
+
+
+               <tr>
+                   <td></td><td class="form-inline"><br><input class="btn text-right" type="submit" value="Add Member" style="color:white; background-color:DeepSkyBlue "></form> &nbsp;&nbsp; <form action="/" method="POST"><input class="btn text-right" type="submit" value="Cancel" style="color:white; background-color:indianred "></form> <br><br></td>
+
+
+                </tr>
+
+
+
+    </table></center>
+
+    </div>
+  </div>
+
+
+{% endblock %}

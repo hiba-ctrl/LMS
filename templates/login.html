@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% block title %}LMS App{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+
+<div class="jumbotron"   >
+      <h1 class="display-5" style="font-family:verdana;"  ><center><strong>LIBRARY MANAGMENT SYSTEM</strong> </center> </h1>
+
+    <h2 class="lead" style="font-family:courier;"  ><center>Designed to help librarian maintain the database of books and the books that are borrowed by members </center> </h2>
+
+
+    <h3 class="lead"  style="font-family:courier;" ><center>This system completely automates the library's activities.</center></h3>
+
+
+  </div>
+
+<div class="twoToneCenter">
+
+
+</div>
+
+<hr >
+
+<!--<body style="background-image: url('static/img.jpg'); height: 100vh">-->
+  <div class="row" style="display: flex ;  justify-content: center ;  "  >
+
+    <div class="w-50 p-5"   >
+
+            <center>
+            <h2 style="color:white;background-color:MediumSeaGreen ; line-height:2.00em;   " ><center>&nbsp;&nbsp;LOGIN&nbsp;&nbsp;  </center></h2><br>
+
+           <form action="" method="post"  >
+        <input type="text"  placeholder="Username" name="username" value="{{
+          request.form.username }}"> <br><br>
+         <input type="password" placeholder="Password" name="password" value="{{
+          request.form.password }}"><br><br>
+        <input class="btn text-right" type="submit" value="SIGN IN" style="color:white; background-color:DeepSkyBlue ">
+      </form><BR>
+                 <form action="/member_sign" method="post"  >
+        <input class="btn text-right" type="submit" value="SIGN UP" style="color:white; background-color:ORANGE ">
+
+
+
+      </form>
+
+
+                <br><hr class="my-1"><br>
+      {% if error %}
+        <p class="error" style="color:white; background-color:IndianRed; "><strong>Error:</strong> {{ error }}
+      {% endif %}
+      </center>
+    </div>
+  </div>
+<!--</body>-->
+    </style>
+    </head>
+
+{% endblock %}
